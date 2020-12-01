@@ -18,6 +18,7 @@ const MainStackNavigator = () => {
             />
             <Stack.Screen
                 name="News"
+                options={{headerBackTitle: "Back"}}
                 component={NewsScreen} />
         </Stack.Navigator>
     );

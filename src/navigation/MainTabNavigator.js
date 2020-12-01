@@ -39,7 +39,7 @@ const MainTabNavigator = () => {
             screenOptions={configureScreenOptions}
             tabBarOptions={tabBarOptions}
         >
-            <Tab.Screen name="NewsList" component={NewsListScreen} />
+            <Tab.Screen name="NewsList" component={NewsListScreen} options={{title: "News"}} />
             <Tab.Screen name="Favorites" component={FavoritesScreen} />
         </Tab.Navigator>
     );
