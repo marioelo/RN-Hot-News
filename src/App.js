@@ -1,22 +1,14 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  StatusBar,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+
+import MainTabNavigator from './navigation/MainTabNavigator';
 
 const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Text style={{textAlign: 'center'}}>Hot News</Text>
-      </SafeAreaView>
-    </>
-  );
+    return (
+        <NavigationContainer>
+            <MainTabNavigator />
+        </NavigationContainer>
+    );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;
