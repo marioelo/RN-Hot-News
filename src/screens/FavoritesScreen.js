@@ -4,7 +4,7 @@ import {
     SafeAreaView
 } from 'react-native';
 
-const FavoritesScreen = () => {
+const FavoritesScreen = props => {
 
     return (
         <SafeAreaView>

@@ -1,17 +1,19 @@
 import React from 'react';
 import {
+    View,
     Text,
-    SafeAreaView,
+    Button,
 } from 'react-native';
 
-const NewsScreen = () => {
 
+const WebViewScreen = props => {
     return (
-        <SafeAreaView>
-            <Text style={{textAlign: "center"}}>News Screen</Text>
-        </SafeAreaView>
-    );
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+            <Button onPress={() => props.navigation.goBack()} title="Dismiss" />
+        </View>
+      );
 }
 
 
-export default NewsScreen;
+export default WebViewScreen;
