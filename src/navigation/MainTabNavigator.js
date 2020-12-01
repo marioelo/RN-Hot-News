@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import NewsScreen from '../screens/NewsScreen';
+import NewsListScreen from '../screens/NewsListScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 
 const MainTabNavigator = () => {
@@ -14,7 +14,7 @@ const MainTabNavigator = () => {
             let iconName;
 
             switch (route.name) {
-                case 'News':
+                case 'NewsList':
                     iconName = focused ? 'newspaper' : 'newspaper-outline';
                     break;
                 case 'Favorites':
@@ -39,7 +39,7 @@ const MainTabNavigator = () => {
             screenOptions={configureScreenOptions}
             tabBarOptions={tabBarOptions}
         >
-            <Tab.Screen name="News" component={NewsScreen} />
+            <Tab.Screen name="NewsList" component={NewsListScreen} options={{title: "News"}} />
             <Tab.Screen name="Favorites" component={FavoritesScreen} />
         </Tab.Navigator>
     );

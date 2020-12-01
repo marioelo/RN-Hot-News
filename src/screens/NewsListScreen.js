@@ -5,11 +5,11 @@ import {
     Button,
 } from 'react-native';
 
-const FavoritesScreen = props => {
+const NewsListScreen = props => {
 
     return (
         <SafeAreaView>
-            <Text style={{textAlign: "center"}}>Favorites Screen</Text>
+            <Text style={{textAlign: "center"}}>News Screen</Text>
             <Button
                 onPress={() => props.navigation.navigate('News')}
                 title="Open News"
@@ -19,4 +19,4 @@ const FavoritesScreen = props => {
 }
 
 
-export default FavoritesScreen;
+export default NewsListScreen;
