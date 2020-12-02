@@ -10,13 +10,15 @@ import {
 
 const NewsItem = props => {
 
-    const imageURL = props.article.urlToImage || 'https://e3.365dm.com/20/11/768x432/skynews-brexit-breaking-news_5177180.jpg?20201123152327';
-
+    const imageSource = props.article.urlToImage ? {
+        uri: props.article.urlToImage
+    } : require('../assets/breaking-news.jpg');
+    
     
     return (
         <TouchableOpacity style={styles.card} onPress={() => console.log('pressed:', props.article.title)}>
             <Image
-                source={{uri: imageURL}}
+                source={imageSource}
                 style={styles.image}
                 resizeMode="cover" />
             <View style={styles.content}>
