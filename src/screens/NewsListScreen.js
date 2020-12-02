@@ -1,9 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Text,
-    View,
-    SafeAreaView,
-    Button,
     FlatList,
     StyleSheet,
 } from 'react-native';
@@ -19,8 +15,9 @@ const NewsListScreen = props => {
         fetchNews();
     }, []);
 
+    
     const renderItem = ({ item }) => (
-        <NewsItem article={item} />
+        <NewsItem article={item} onPress={() => props.navigation.navigate('News')} />
     );
 
 
@@ -43,32 +40,20 @@ const NewsListScreen = props => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Noticias de Chile</Text>
-            {/* <Button
-                onPress={() => props.navigation.navigate('News')}
-                title="Open News"
-            /> */}
-
-            <FlatList
-                data={newsList}
-                renderItem={renderItem}
-                keyExtractor={(_, index) => index.toString()}
-            />
-        </SafeAreaView>
+        <FlatList
+            data={newsList}
+            renderItem={renderItem}
+            contentContainerStyle={styles.container}
+            keyExtractor={(_, index) => index.toString()}
+        />
     );
 }
 
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        paddingVertical: 20
     },
-    title: {
-        fontSize: 26,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    }
 });
 
 

@@ -16,7 +16,7 @@ const NewsItem = props => {
     
     
     return (
-        <TouchableOpacity style={styles.card} onPress={() => console.log('pressed:', props.article.title)}>
+        <TouchableOpacity style={styles.card} onPress={props.onPress}>
             <Image
                 source={imageSource}
                 style={styles.image}
