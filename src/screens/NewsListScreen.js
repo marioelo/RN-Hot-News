@@ -20,7 +20,13 @@ const NewsListScreen = props => {
 
     
     const renderItem = ({ item }) => (
-        <NewsItem article={item} onPress={() => props.navigation.navigate('News')} />
+        <NewsItem
+            article={item}
+            onPress={() => props.navigation.navigate('News', {
+                url: item.url,
+                source: item.source.name
+            })}
+        />
     );
 
 
