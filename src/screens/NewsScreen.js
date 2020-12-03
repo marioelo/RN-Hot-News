@@ -10,7 +10,7 @@ import { fetchNews } from '../store/newsStore';
 import * as statusCode from '../utilities/constants/statusCode';
 
 
-const NewsListScreen = props => {
+const NewsScreen = props => {
 
     const isLoading = useMemo(() => props.status === statusCode.LOADING, [props.status]);
 
@@ -22,7 +22,7 @@ const NewsListScreen = props => {
     const renderItem = ({ item }) => (
         <NewsItem
             article={item}
-            onPress={() => props.navigation.navigate('News', {
+            onPress={() => props.navigation.navigate('NewsWebView', {
                 url: item.url,
                 source: item.source.name
             })}
@@ -75,4 +75,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsListScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsScreen);

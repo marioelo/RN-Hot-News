@@ -12,10 +12,10 @@ const RootStackNavigator = () => {
 
     
     const getHeaderTitle = route => {
-        const routeName = getFocusedRouteNameFromRoute(route) ?? 'NewsList';
+        const routeName = getFocusedRouteNameFromRoute(route) ?? 'News';
       
         switch (routeName) {
-            case 'NewsList':
+            case 'News':
                 return 'Noticias de Chile';
             case 'Favorites':
                 return 'Favoritas';
@@ -32,7 +32,7 @@ const RootStackNavigator = () => {
                     headerTitle: getHeaderTitle(route),
                 })} />
             <Stack.Screen
-                name="News"
+                name="NewsWebView"
                 options={{headerBackTitle: "Volver"}}
                 component={NewsWebViewScreen} />
         </Stack.Navigator>
