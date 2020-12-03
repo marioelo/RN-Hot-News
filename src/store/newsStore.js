@@ -9,12 +9,13 @@ const initialState = {
 
 
 export const fetchNews = () => (dispatch) => {
+    dispatch(setStatus(statusCode.LOADING));
+
+    const url = 'https://newsapi.org/v2/everything';
     const apiKey = 'bb320b7c35b444fcb9f357a1bf360040';
     const query = '+chile NOT ají';
     const pageSize = 100;
-    const language = 'es'
-
-    const url = `https://newsapi.org/v2/everything`;
+    const language = 'es';
 
     axios.get(url, {
         params: {

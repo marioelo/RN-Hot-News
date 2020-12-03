@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import {
     FlatList,
     StyleSheet,
@@ -6,9 +6,12 @@ import {
 import { connect } from 'react-redux';
 import NewsItem from '../components/NewsItem';
 import { fetchNews } from '../store/newsStore';
+import * as statusCode from '../utilities/constants/statusCode';
 
 
 const NewsListScreen = props => {
+
+    const isLoading = useMemo(() => props.status === statusCode.LOADING, [props.status]);
 
     useEffect(() => {
         props.fetchNews();
@@ -26,6 +29,8 @@ const NewsListScreen = props => {
             renderItem={renderItem}
             contentContainerStyle={styles.container}
             keyExtractor={(_, index) => index.toString()}
+            refreshing={isLoading}
+            onRefresh={() => props.fetchNews()}
         />
     );
 }
