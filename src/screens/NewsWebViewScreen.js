@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {
     View,
     Text,
@@ -16,9 +16,6 @@ const NewsWebViewScreen = props => {
 
     const { url, source, origin } = props.route.params;
 
-    const iconName = useMemo(() => {
-        return origin === 'News' ? 'add' : 'remove'
-    }, []);
 
     useEffect(() => {
         props.navigation.setOptions({title: source});
@@ -26,6 +23,8 @@ const NewsWebViewScreen = props => {
 
 
     useLayoutEffect(() => {
+        const iconName = origin === 'News' ? 'add' : 'remove'; 
+
         props.navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity
