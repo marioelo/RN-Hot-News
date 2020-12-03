@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import * as colors from '../utilities/constants/colors';
 import NewsListScreen from '../screens/NewsListScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 
@@ -29,8 +29,8 @@ const MainTabNavigator = () => {
 
 
     const tabBarOptions = {
-        activeTintColor: '#ff6666',
-        inactiveTintColor: '#575151',
+        activeTintColor: colors.PRIMARY,
+        inactiveTintColor: colors.SECONDARY,
     }
 
 

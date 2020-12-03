@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import MainTabNavigator from './MainTabNavigator';
-import NewsScreen from '../screens/NewsScreen';
+import NewsWebViewScreen from '../screens/NewsWebViewScreen';
 
 
 const RootStackNavigator = () => {
@@ -33,8 +33,8 @@ const RootStackNavigator = () => {
                 })} />
             <Stack.Screen
                 name="News"
-                options={{headerBackTitle: "Back"}}
-                component={NewsScreen} />
+                options={{headerBackTitle: "Volver"}}
+                component={NewsWebViewScreen} />
         </Stack.Navigator>
     );
 }
