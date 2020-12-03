@@ -1,22 +1,50 @@
 import React from 'react';
 import {
-    Text,
-    SafeAreaView,
-    Button,
+    FlatList,
+    StyleSheet,
 } from 'react-native';
+import { connect } from 'react-redux';
+import NewsItem from '../components/NewsItem';
 
 const FavoritesScreen = props => {
 
+    const renderItem = ({ item }) => (
+        <NewsItem
+            article={item}
+            onPress={() => props.navigation.navigate('NewsWebView', {
+                url: item.url,
+                source: item.source.name
+            })}
+        />
+    );
+
+
     return (
-        <SafeAreaView>
-            <Text style={{textAlign: "center"}}>Favorites Screen</Text>
-            <Button
-                onPress={() => props.navigation.navigate('News')}
-                title="Open News"
-            />
-        </SafeAreaView>
+        <FlatList
+            data={props.articles}
+            renderItem={renderItem}
+            contentContainerStyle={styles.container}
+            keyExtractor={(_, index) => index.toString()}
+        />
     );
 }
 
 
-export default FavoritesScreen;
+const styles = StyleSheet.create({
+    container: {
+        paddingVertical: 20
+    },
+});
+
+
+const mapStateToProps = state => ({
+    articles: state.favorites.articles
+});
+
+
+const mapDispatchToProps = dispatch => ({
+    fetchNews: () => dispatch(fetchNews()),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);
