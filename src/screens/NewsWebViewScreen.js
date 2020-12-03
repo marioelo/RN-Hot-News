@@ -22,6 +22,7 @@ const NewsWebViewScreen = props => {
             source={{ uri: url }}
             startInLoadingState
             originWhitelist={["*"]}
+            mediaPlaybackRequiresUserAction
         />
       );
 }
