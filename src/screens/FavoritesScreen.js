@@ -13,7 +13,8 @@ const FavoritesScreen = props => {
             article={item}
             onPress={() => props.navigation.navigate('NewsWebView', {
                 url: item.url,
-                source: item.source.name
+                source: item.source.name,
+                origin: 'Favorites',
             })}
         />
     );

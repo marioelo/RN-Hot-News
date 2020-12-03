@@ -1,20 +1,41 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo, useLayoutEffect} from 'react';
 import {
     View,
     Text,
     Button,
-    ActivityIndicator
+    TouchableOpacity,
+    ActivityIndicator,
+    StyleSheet,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as colors from '../utilities/constants/colors';
 
 
 const NewsWebViewScreen = props => {
 
-    const { url, source } = props.route.params;
+    const { url, source, origin } = props.route.params;
+
+    const iconName = useMemo(() => {
+        return origin === 'News' ? 'add' : 'remove'
+    }, []);
 
     useEffect(() => {
         props.navigation.setOptions({title: source});
     }, []);
+
+
+    useLayoutEffect(() => {
+        props.navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity
+                    onPress={() => alert('test')}
+                    style={styles.favoriteButton}>
+                    <Ionicons name={iconName} size={22} color={'#fff'} />
+                </TouchableOpacity>
+            ),
+        });
+      }, [props.navigation]);
 
 
     return (
@@ -26,6 +47,19 @@ const NewsWebViewScreen = props => {
         />
       );
 }
+
+
+const styles = StyleSheet.create({
+    favoriteButton: {
+        backgroundColor: colors.PRIMARY,
+        marginRight: 10,
+        width: 32,
+        height: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
+    }
+});
 
 
 export default NewsWebViewScreen;
