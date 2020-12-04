@@ -194,7 +194,6 @@
 				868A914EC27CF43C3832A344 /* Pods-HotNews-tvOSTests.debug.xcconfig */,
 				6B334478305855267E331459 /* Pods-HotNews-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
