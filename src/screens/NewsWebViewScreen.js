@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect, useMemo} from 'react';
 import {
     Alert,
     View,
@@ -18,6 +18,8 @@ import {addArticle, removeArticle} from '../store/favoritesStore';
 const NewsWebViewScreen = props => {
 
     const { article, origin } = props.route.params;
+    
+    const adding = useMemo(() => origin === 'News', []);
 
 
     useEffect(() => {
@@ -26,7 +28,7 @@ const NewsWebViewScreen = props => {
 
 
     useLayoutEffect(() => {
-        const iconName = origin === 'News' ? 'add' : 'remove';
+        const iconName = adding ? 'add' : 'remove';
         props.navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity
@@ -40,9 +42,9 @@ const NewsWebViewScreen = props => {
 
 
     const handleFavitoresButtonPressed = () => {
-        const adding = origin === 'News';
         let title;
         let message;
+        
         if (adding) {
             props.addArticle(article);
             title = 'Agregado a favotiros';
