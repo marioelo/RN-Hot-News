@@ -12,8 +12,7 @@ const FavoritesScreen = props => {
         <NewsItem
             article={item}
             onPress={() => props.navigation.navigate('NewsWebView', {
-                url: item.url,
-                source: item.source.name,
+                article: item,
                 origin: 'Favorites',
             })}
         />
