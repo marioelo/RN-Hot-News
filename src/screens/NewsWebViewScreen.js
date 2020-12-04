@@ -26,8 +26,7 @@ const NewsWebViewScreen = props => {
 
 
     useLayoutEffect(() => {
-        const iconName = origin === 'News' ? 'add' : 'remove'; 
-
+        const iconName = origin === 'News' ? 'add' : 'remove';
         props.navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity
@@ -41,9 +40,10 @@ const NewsWebViewScreen = props => {
 
 
     const handleFavitoresButtonPressed = () => {
+        const adding = origin === 'News';
         let title;
         let message;
-        if (origin === 'News') {
+        if (adding) {
             props.addArticle(article);
             title = 'Agregado a favotiros';
             message = 'El articulo se ha agregado a tus favoritos.';
@@ -54,7 +54,7 @@ const NewsWebViewScreen = props => {
         }
 
         Alert.alert(title, message, [
-            {text: "OK", onPress: () => props.navigation.goBack()}
+            {text: "OK", onPress: () => !adding && props.navigation.goBack()}
         ], {cancelable: false});
     }
 
@@ -83,10 +83,15 @@ const styles = StyleSheet.create({
 });
 
 
+const mapStateToProps = state => ({
+    favorites: state.favorites.articles
+});
+
+
 const mapDispatchToProps = dispatch => ({
     addArticle: (article) => dispatch(addArticle(article)),
     removeArticle: (article) => dispatch(removeArticle(article)),
 });
 
 
-export default connect(null, mapDispatchToProps)(NewsWebViewScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsWebViewScreen);
