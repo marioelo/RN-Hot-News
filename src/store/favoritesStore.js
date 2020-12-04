@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import {storeData, getData} from '../utilities/localStorage';
 
 const initialState = {
     articles: [],
@@ -6,21 +7,55 @@ const initialState = {
 
 
 // Action creators
-export const addArticle = (article) => ({
-    type: actionTypes.ADD_ARTICLE,
-    article,
-});
+export const getArticles = () => dispatch => {
+    getData().then(data => {
+        dispatch(setArticles(data));
+    }).catch(error => {
+        console.log('Error getting the favorite article:', error);
+    });
+}
 
 
-export const removeArticle = (article) => ({
-    type: actionTypes.REMOVE_ARTICLE,
-    article,
+export const addArticle = article => (dispatch, getState) => {
+    const {favorites: {articles}} = getState();
+    const newArticles = [article, ...articles];
+    
+    dispatch(updateArticles(newArticles));
+}
+
+
+export const removeArticle = article => (dispatch, getState) => {
+    const {favorites: {articles}} = getState();
+    
+    const newArticles = [...articles];
+    const index = newArticles.findIndex(el => {
+        return el.url === article.url;
+    });
+    newArticles.splice(index, 1);
+    
+    dispatch(updateArticles(newArticles));
+}
+
+
+const updateArticles = articles => dispatch =>{
+    storeData(articles).then(() => {
+        dispatch(setArticles(articles));
+    }).catch(error => {
+        console.log('Error storing the favorite articles:', error);
+    });
+}
+
+
+const setArticles = articles => ({
+    type: actionTypes.SET_ARTICLES,
+    articles,
 });
 
 
 // Reducer functions
-const addArticleReducer = (state, action) => ({
-    articles: [action.article, ...state.articles],
+const setArticlesReducer = (state, action) => ({
+    ...state,
+    articles: action.articles
 });
 
 
@@ -37,10 +72,8 @@ const removeArticleReducer = (state, action) => {
 // Reducer
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADD_ARTICLE:
-            return addArticleReducer(state, action);
-        case actionTypes.REMOVE_ARTICLE:
-            return removeArticleReducer(state, action);
+        case actionTypes.SET_ARTICLES:
+            return setArticlesReducer(state, action);
         default:
             return state;
     }

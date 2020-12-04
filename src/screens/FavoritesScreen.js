@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     FlatList,
     StyleSheet,
 } from 'react-native';
 import { connect } from 'react-redux';
 import NewsItem from '../components/NewsItem';
+import {getArticles} from '../store/favoritesStore';
 
 const FavoritesScreen = props => {
+
+    useEffect(() => {
+        props.getArticles()
+    }, []);
 
     const renderItem = ({ item }) => (
         <NewsItem
@@ -43,7 +48,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
-    fetchNews: () => dispatch(fetchNews()),
+    getArticles: () => dispatch(getArticles()),
 });
 
 
