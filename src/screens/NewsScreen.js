@@ -1,7 +1,8 @@
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useEffect, useLayoutEffect, useState, useMemo} from 'react';
 import {
     FlatList,
     StyleSheet,
+    BackHandler,
 } from 'react-native';
 import { connect } from 'react-redux';
 import NewsItem from '../components/NewsItem';
@@ -17,6 +18,19 @@ const NewsScreen = props => {
     useEffect(() => {
         props.fetchNews();
     }, []);
+
+    
+    useLayoutEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", onBackPress);
+        return () => {
+            BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+        };
+    }, []);
+
+
+    const onBackPress = () => {
+        return true;
+    }
 
     
     const renderItem = ({ item }) => (

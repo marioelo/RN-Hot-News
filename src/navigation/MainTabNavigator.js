@@ -38,6 +38,7 @@ const MainTabNavigator = () => {
         <Tab.Navigator
             screenOptions={configureScreenOptions}
             tabBarOptions={tabBarOptions}
+            unmountOnBlur
         >
             <Tab.Screen name="News" component={NewsScreen} options={{title: "Noticias"}} />
             <Tab.Screen name="Favorites" component={FavoritesScreen} options={{title: "Favoritas"}} />
