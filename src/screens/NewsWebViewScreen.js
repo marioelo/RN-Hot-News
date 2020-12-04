@@ -1,25 +1,69 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect, useLayoutEffect, useMemo} from 'react';
 import {
+    Alert,
     View,
     Text,
     Button,
-    ActivityIndicator
+    TouchableOpacity,
+    ActivityIndicator,
+    StyleSheet,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {connect} from 'react-redux';
+import * as colors from '../utilities/constants/colors';
+import {addArticle, removeArticle} from '../store/favoritesStore';
 
 
 const NewsWebViewScreen = props => {
 
-    const { url, source } = props.route.params;
+    const { article, origin } = props.route.params;
+    
+    const adding = useMemo(() => origin === 'News', []);
+
 
     useEffect(() => {
-        props.navigation.setOptions({title: source});
+        props.navigation.setOptions({title: article.source.name});
     }, []);
+
+
+    useLayoutEffect(() => {
+        const iconName = adding ? 'add' : 'remove';
+        props.navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity
+                    onPress={() => handleFavitoresButtonPressed()}
+                    style={styles.favoriteButton}>
+                    <Ionicons name={iconName} size={22} color={'#fff'} />
+                </TouchableOpacity>
+            ),
+        });
+    }, [props.navigation]);
+
+
+    const handleFavitoresButtonPressed = () => {
+        let title;
+        let message;
+        
+        if (adding) {
+            props.addArticle(article);
+            title = 'Agregado a favotiros';
+            message = 'El articulo se ha agregado a tus favoritos.';
+        } else {
+            props.removeArticle(article);
+            title = 'Eliminado de favotiros';
+            message = 'El articulo se ha eliminado a tus favoritos.';
+        }
+
+        Alert.alert(title, message, [
+            {text: "OK", onPress: () => !adding && props.navigation.goBack()}
+        ], {cancelable: false});
+    }
 
 
     return (
         <WebView
-            source={{ uri: url }}
+            source={{ uri: article.url }}
             startInLoadingState
             originWhitelist={["*"]}
             mediaPlaybackRequiresUserAction
@@ -28,4 +72,28 @@ const NewsWebViewScreen = props => {
 }
 
 
-export default NewsWebViewScreen;
+const styles = StyleSheet.create({
+    favoriteButton: {
+        backgroundColor: colors.PRIMARY,
+        marginRight: 10,
+        width: 32,
+        height: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
+    }
+});
+
+
+const mapStateToProps = state => ({
+    favorites: state.favorites.articles
+});
+
+
+const mapDispatchToProps = dispatch => ({
+    addArticle: (article) => dispatch(addArticle(article)),
+    removeArticle: (article) => dispatch(removeArticle(article)),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsWebViewScreen);
